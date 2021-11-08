@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './dummy_data.dart';
+
 class CategoryMealsScreen extends StatelessWidget {
   static const routeName = 'category-meals';
 
@@ -19,16 +21,23 @@ class CategoryMealsScreen extends StatelessWidget {
     final categoryTitle = routeArgs['title'];
     final categoryId = routeArgs['id'];
 
+    //danh sách các meal của category này
+    final categoryMeals = DUMMY_MEALS.where((meal) {
+      //Lấy về những meal mà trong list categories của nó có cái categoryId trên kia
+      return meal.categories.contains(categoryId);
+    }).toList();
+
     return Scaffold(
       appBar: AppBar(
         //phải convert kiểu
         title: Text(categoryTitle as String),
       ),
-      // body: ListView.builder(
-      //   itemBuilder: (ctx, index) {
-
-      //   }, itemCount: ,
-      // ),
+      body: ListView.builder(
+        itemBuilder: (ctx, index) {
+          return Text(categoryMeals[index].title);
+        },
+        itemCount: categoryMeals.length,
+      ),
     );
   }
 }
