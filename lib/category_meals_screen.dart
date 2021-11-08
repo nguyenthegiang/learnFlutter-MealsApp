@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
+  static const routeName = 'category-meals';
+
   /*Không dùng cái này nữa vì chuyển sang dùng named route*/
   // final String categoryId;
   // final String categoryTitle;
@@ -22,9 +24,11 @@ class CategoryMealsScreen extends StatelessWidget {
         //phải convert kiểu
         title: Text(categoryTitle as String),
       ),
-      body: Center(
-        child: Text('The recipes for the Category!'),
-      ),
+      // body: ListView.builder(
+      //   itemBuilder: (ctx, index) {
+
+      //   }, itemCount: ,
+      // ),
     );
   }
 }
