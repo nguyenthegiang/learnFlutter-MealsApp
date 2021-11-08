@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './category_meals_screen.dart';
+import '../screens/category_meals_screen.dart';
 
 //Dùng cho cái GridView của Categories_screen
 class CategoryItem extends StatelessWidget {
