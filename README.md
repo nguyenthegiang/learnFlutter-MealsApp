@@ -1,3 +1,6 @@
+# How to use
+Download DeliMeal.apk file to an Android Phone to run it
+
 # meals_app
 
 A new Flutter project.
