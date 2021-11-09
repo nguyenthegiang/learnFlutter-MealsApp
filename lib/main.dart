@@ -28,6 +28,9 @@ class _MyAppState extends State<MyApp> {
 
   List<Meal> _availableMeals = DUMMY_MEALS;
 
+  //List để lưu các favorite meal
+  List<Meal> _favoriteMeals = [];
+
   //gọi đến hàm này khi ng dùng nhấn Save ở trong filterScreen -> update các giá trị filter
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -50,6 +53,32 @@ class _MyAppState extends State<MyApp> {
         return true;
       }).toList();
     });
+  }
+
+  //function để thêm/bỏ 1 favorite meal
+  void _toggleFavorite(String mealId) {
+    //tìm meal này trong list meal
+    final existingIndex =
+        _favoriteMeals.indexWhere((meal) => meal.id == mealId);
+    //nếu tìm thấy -> xóa khỏi list
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    }
+    //nếu ko tìm thấy -> thêm vào list
+    else {
+      setState(() {
+        _favoriteMeals.add(
+          DUMMY_MEALS.firstWhere((meal) => meal.id == mealId),
+        );
+      });
+    }
+  }
+
+  //function check xem 1 meal có phải favorite ko
+  bool _isMealFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -77,10 +106,11 @@ class _MyAppState extends State<MyApp> {
       //home: CategoriesScreen(),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => TabsScreen(),
+        '/': (ctx) => TabsScreen(_favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        MealDetailScreen.routeName: (ctx) =>
+            MealDetailScreen(_toggleFavorite, _isMealFavorite),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, _setFilters),
       },
       //Đoạn code này bị lỗi và ko có tác dụng gì
